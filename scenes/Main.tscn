@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://data/textures/PNG/Dark/texture_01.png" type="Texture" id=1]
 [ext_resource path="res://data/textures/PNG/Green/texture_01.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/Camera.gd" type="Script" id=4]
+[ext_resource path="res://scripts/CameraData.gd" type="Script" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 100, 0.5, 100 )
@@ -20,6 +22,14 @@ extents = Vector3( 50, 0.5, 50 )
 albedo_texture = ExtResource( 2 )
 
 [sub_resource type="BoxShape" id=6]
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 5 )
+target_offset = Vector3( 0, 0, 0 )
+rotation = Vector3( 0, 0, 0 )
+pitch_limit = Vector2( 0, 0 )
+anchor_offset = Vector3( 0, 0, 0 )
+look_target = Vector3( 0, 0, 0 )
 
 [node name="Main" type="Spatial"]
 
@@ -69,4 +79,7 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.263888, 3.8165 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.943524, 0.331305, 0, -0.331305, 0.943524, 0, 3.09879, 7.86459 )
+transform = Transform( -1, 1.11444e-07, -3.06191e-07, -7.53194e-08, 0.835184, 0.549971, 3.17017e-07, 0.549971, -0.835184, -0.344731, 2.08178, 2.0604 )
+script = ExtResource( 4 )
+target = NodePath("../KinematicBody")
+setup = SubResource( 7 )
