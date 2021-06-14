@@ -77,6 +77,7 @@ shape = SubResource( 6 )
 
 [node name="KinematicBody" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.263888, 3.8165 )
+camera = NodePath("../Camera")
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1, 1.11444e-07, -3.06191e-07, -7.53194e-08, 0.835184, 0.549971, 3.17017e-07, 0.549971, -0.835184, -0.344731, 2.38547, 1.59845 )

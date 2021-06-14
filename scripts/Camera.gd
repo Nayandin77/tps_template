@@ -3,8 +3,9 @@ extends Camera
 export(NodePath) onready var target = get_node(target)
 
 export(Resource) var setup
-var _pressed := false
+
 var _last_pos
+var _pressed := false
 
 func _ready():
 	if setup.target_offset == Vector3.ZERO:
@@ -28,13 +29,17 @@ func _process(delta):
 	self.look_at(look_at, Vector3.UP)
 	
 func _unhandled_input(event):
-	if event is InputEventMouseButton and event.pressed == true:
-		if _pressed == false:
-			_pressed = true
-			_last_pos = event.position
-	if event is InputEventMouseButton and event.pressed == false:
-		_pressed = false
-	if event is InputEventScreenDrag and _pressed == true:
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.pressed == true:
+			if _pressed == false:
+				_pressed = true
+				_last_pos = event.position
+				print("true", event)
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.pressed == false:
+			_pressed = false
+			print("false", event)
+	if event is InputEventMouseMotion and _pressed == true:
 		var diff : Vector2 = _last_pos - event.position
 		diff = diff / 100.0
 		setup.rotation.y += diff.x

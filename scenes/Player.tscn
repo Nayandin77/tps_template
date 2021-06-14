@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://data/ybot.gltf" type="PackedScene" id=1]
 [ext_resource path="res://scripts/player_control.gd" type="Script" id=2]
@@ -6,14 +6,14 @@
 [sub_resource type="AnimationNodeAnimation" id=1]
 animation = "Idle-loop"
 
-[sub_resource type="AnimationNodeAnimation" id=2]
-animation = "Jump-loop"
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "Running-loop"
 
 [sub_resource type="AnimationNodeAnimation" id=3]
 animation = "Running Jump-loop"
 
-[sub_resource type="AnimationNodeAnimation" id=4]
-animation = "Running-loop"
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "Jump-loop"
 
 [sub_resource type="AnimationNodeAnimation" id=5]
 animation = "Standard Walk-loop"
@@ -36,19 +36,38 @@ xfade_time = 0.3
 [sub_resource type="AnimationNodeStateMachineTransition" id=11]
 xfade_time = 0.3
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+advance_condition = "jump"
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+switch_mode = 2
+auto_advance = true
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+advance_condition = "jump"
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+switch_mode = 2
+auto_advance = true
+xfade_time = 0.3
+
 [sub_resource type="AnimationNodeStateMachine" id=12]
 states/Idle/node = SubResource( 1 )
 states/Idle/position = Vector2( 97, 64 )
-states/Jump-loop/node = SubResource( 2 )
-states/Jump-loop/position = Vector2( 915, 264 )
 states/Running/node = SubResource( 4 )
 states/Running/position = Vector2( 425, 64 )
-"states/Running Jump-loop/node" = SubResource( 3 )
-"states/Running Jump-loop/position" = Vector2( 941, 200 )
+states/RunningJump/node = SubResource( 3 )
+states/RunningJump/position = Vector2( 655, 64 )
+states/StandingJump/node = SubResource( 2 )
+states/StandingJump/position = Vector2( 50, 213 )
 states/Walking/node = SubResource( 5 )
 states/Walking/position = Vector2( 251, 273 )
-transitions = [ "Idle", "Walking", SubResource( 6 ), "Walking", "Idle", SubResource( 7 ), "Running", "Walking", SubResource( 8 ), "Walking", "Running", SubResource( 9 ), "Idle", "Running", SubResource( 10 ), "Running", "Idle", SubResource( 11 ) ]
+transitions = [ "Idle", "Walking", SubResource( 6 ), "Walking", "Idle", SubResource( 7 ), "Running", "Walking", SubResource( 8 ), "Walking", "Running", SubResource( 9 ), "Idle", "Running", SubResource( 10 ), "Running", "Idle", SubResource( 11 ), "Running", "RunningJump", SubResource( 15 ), "RunningJump", "Running", SubResource( 16 ), "Idle", "StandingJump", SubResource( 17 ), "StandingJump", "Idle", SubResource( 18 ) ]
 start_node = "Idle"
+graph_offset = Vector2( -88, 12 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
@@ -67,6 +86,7 @@ anim_player = NodePath("../ybot/AnimationPlayer")
 active = true
 root_motion_track = NodePath("Armature/Skeleton:root_motion")
 parameters/playback = SubResource( 13 )
+parameters/conditions/jump = false
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.865813, 0 )
