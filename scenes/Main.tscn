@@ -25,7 +25,7 @@ albedo_texture = ExtResource( 2 )
 
 [sub_resource type="Resource" id=7]
 script = ExtResource( 5 )
-target_offset = Vector3( 0, 0, 0 )
+target_offset = Vector3( -1, 1.5, -3 )
 rotation = Vector3( 0, 0, 0 )
 pitch_limit = Vector2( 0, 0 )
 anchor_offset = Vector3( 0, 0, 0 )
@@ -79,7 +79,7 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.263888, 3.8165 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -1, 1.11444e-07, -3.06191e-07, -7.53194e-08, 0.835184, 0.549971, 3.17017e-07, 0.549971, -0.835184, -0.344731, 2.08178, 2.0604 )
+transform = Transform( -1, 1.11444e-07, -3.06191e-07, -7.53194e-08, 0.835184, 0.549971, 3.17017e-07, 0.549971, -0.835184, -0.344731, 2.38547, 1.59845 )
 script = ExtResource( 4 )
 target = NodePath("../KinematicBody")
 setup = SubResource( 7 )

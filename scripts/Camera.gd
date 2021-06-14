@@ -22,7 +22,7 @@ func _process(delta):
 	target_offset = target_offset.rotated(Vector3.UP, setup.rotation.y)
 	look_at = look_at.rotated(Vector3.UP, setup.rotation.y)
 	target_offset = target_offset.rotated(up_down_axis, setup.rotation.x)
-	look_at = look_at.rotated(up_down_axis, setup.rotation.y)
+	look_at = look_at.rotated(up_down_axis, setup.rotation.x)
 	
 	self.transform.origin += target_offset
 	self.look_at(look_at, Vector3.UP)
