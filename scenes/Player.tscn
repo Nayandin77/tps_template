@@ -75,6 +75,7 @@ graph_offset = Vector2( -88, 12 )
 radius = 0.45
 
 [node name="KinematicBody" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139642, 0 )
 script = ExtResource( 2 )
 animationtree = NodePath("AnimationTree")
 

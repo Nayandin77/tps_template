@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://data/textures/PNG/Dark/texture_01.png" type="Texture" id=1]
 [ext_resource path="res://data/textures/PNG/Green/texture_01.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=4]
 [ext_resource path="res://scripts/CameraData.gd" type="Script" id=5]
+[ext_resource path="res://data/textures/PNG/Orange/texture_01.png" type="Texture" id=6]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 100, 0.5, 100 )
@@ -23,6 +24,14 @@ albedo_texture = ExtResource( 2 )
 
 [sub_resource type="BoxShape" id=6]
 
+[sub_resource type="CubeMesh" id=8]
+size = Vector3( 0.5, 20, 50 )
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="BoxShape" id=10]
+
 [sub_resource type="Resource" id=7]
 script = ExtResource( 5 )
 target_offset = Vector3( -1, 1.5, -3 )
@@ -35,48 +44,70 @@ look_target = Vector3( 0, 0, 0 )
 
 [node name="Level" type="Spatial" parent="."]
 
-[node name="MeshInstance" type="MeshInstance" parent="Level"]
+[node name="Floor" type="MeshInstance" parent="Level"]
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 
-[node name="StaticBody" type="StaticBody" parent="Level/MeshInstance"]
+[node name="StaticBody" type="StaticBody" parent="Level/Floor"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Level/MeshInstance/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Level/Floor/StaticBody"]
 shape = SubResource( 3 )
 
-[node name="MeshInstance2" type="MeshInstance" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38446, 0 )
+[node name="Cube" type="MeshInstance" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21175, 0 )
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Level/MeshInstance2"]
+[node name="StaticBody" type="StaticBody" parent="Level/Cube"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Level/MeshInstance2/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Level/Cube/StaticBody"]
 shape = SubResource( 6 )
 
-[node name="MeshInstance3" type="MeshInstance" parent="Level"]
+[node name="Ramp" type="MeshInstance" parent="Level"]
 transform = Transform( 1, 0, 0, 0, 0.815633, -0.57857, 0, 0.57857, 0.815633, 4.67424, -0.026454, 0 )
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Level/MeshInstance3"]
+[node name="StaticBody" type="StaticBody" parent="Level/Ramp"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Level/MeshInstance3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Level/Ramp/StaticBody"]
 shape = SubResource( 6 )
 
-[node name="MeshInstance4" type="MeshInstance" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67424, 0.186979, -7.08177 )
+[node name="Walls" type="Spatial" parent="Level"]
+
+[node name="Wall" type="MeshInstance" parent="Level/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67424, 1.35087, -7.08177 )
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Level/MeshInstance4"]
+[node name="StaticBody" type="StaticBody" parent="Level/Walls/Wall"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Level/MeshInstance4/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Level/Walls/Wall/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0413418, -2.86102e-06, -0.00174713 )
 shape = SubResource( 6 )
 
+[node name="Wall2" type="MeshInstance" parent="Level/Walls"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, -22.9922 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
+
+[node name="StaticBody" type="StaticBody" parent="Level/Walls/Wall2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level/Walls/Wall2/StaticBody"]
+shape = SubResource( 10 )
+
+[node name="Wall3" type="MeshInstance" parent="Level/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.6699, 0, 1.74857 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
+
+[node name="StaticBody" type="StaticBody" parent="Level/Walls/Wall3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level/Walls/Wall3/StaticBody"]
+shape = SubResource( 10 )
+
 [node name="KinematicBody" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.263888, 3.8165 )
+transform = Transform( 0.953053, 0, 0.302802, 0, 1, 0, -0.302802, 0, 0.953053, 0, 0, 3.817 )
 camera = NodePath("../Camera")
 
 [node name="Camera" type="Camera" parent="."]

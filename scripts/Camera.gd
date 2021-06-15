@@ -27,16 +27,17 @@ func _process(delta):
 	
 	self.transform.origin += target_offset
 	self.look_at(look_at, Vector3.UP)
+	collide()
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.pressed == true:
+		if event.button_index == BUTTON_RIGHT and event.pressed == true:
 			if _pressed == false:
 				_pressed = true
 				_last_pos = event.position
 				print("true", event)
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.pressed == false:
+		if event.button_index == BUTTON_RIGHT and event.pressed == false:
 			_pressed = false
 			print("false", event)
 	if event is InputEventMouseMotion and _pressed == true:
@@ -46,3 +47,11 @@ func _unhandled_input(event):
 		setup.rotation.x -= diff.y
 		setup.rotation.x = clamp(setup.rotation.x, setup.pitch_limit.x, setup.pitch_limit.y)
 		_last_pos = event.position
+		
+func collide():
+	var start = target.transform.origin + setup.anchor_offset
+	var end = self.transform.origin
+	var space_state = get_world().direct_space_state
+	var col = space_state.intersect_ray(start, end)
+	if not col.empty():
+		self.transform.origin = col.position

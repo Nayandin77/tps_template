@@ -16,8 +16,8 @@ func _physics_process(delta):
 	if is_on_floor():
 		gravity = Vector3.ZERO
 	else:
-		gravity += Vector3(0.0, -9.83, 0.0)
-		
+		gravity += Vector3(0.0, -9.83, 0.0) * delta
+
 	v += gravity
 	
 	var dir : Vector3 = Vector3.ZERO
@@ -49,5 +49,8 @@ func _physics_process(delta):
 		_anim_tree["parameters/playback"].travel("Idle")
 		v = v.rotated(Vector3.UP, self.rotation.y)
 	
+	_anim_tree["parameters/conditions/jump"] = Input.is_action_pressed("jump")
+	#if Input.is_action_pressed("jump"):
+	#	dir.y += 100
 	
 	move_and_slide(v, Vector3.UP)
